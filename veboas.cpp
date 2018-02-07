@@ -1,7 +1,10 @@
 /*
 
-An implementation of the cache-oblivious implicit van Emde Boas binary
-tree data structure.
+A cache-oblivious [0] version of a van Emde Boas search tree [1],
+stored implicitly as an array.
+
+0: http://erikdemaine.org/papers/BRICS2002/paper.pdf
+1: https://en.wikipedia.org/wiki/Van_Emde_Boas_tree
 
 Thanks to Jeff Erickson for suggesting the problem, and to John
 Fischer and Yasutaka Furukawa for pointing out how to encode an
@@ -19,7 +22,7 @@ Leslie Wu
 using namespace std;
 
 // Data 
-char* veb_str = "HDLBACFEGJIKNMO";
+const char* veb_str = "HDLBACFEGJIKNMO";
 
 inline int power_of_two(int exponent) { return 1 << exponent; }
 
@@ -38,7 +41,7 @@ void hyper_compute(int n, int& d, int& D, int& subtree_size, int& subtree_leaf_c
 }
 
 // Implicit van Emde Boas binary search
-int veb_search(char* veb_array, int length, char elt)
+int veb_search(const char* veb_array, int length, char elt)
 {	
 	int d, D, subtree_size, subtree_leaf_count;
 	hyper_compute(length, d, D, subtree_size, subtree_leaf_count);
@@ -107,7 +110,7 @@ int main()
 
 	// To create implicit VEB structure, generate VEB addresses as satellite data,
 	// tag, then sort	
-	char* alpha = "ABCDEFGHIJKLMNO";
+	const char* alpha = "ABCDEFGHIJKLMNO";
 	
 	int len = strlen(alpha);
 	vector<pair<int,char> > indices(len);
@@ -117,7 +120,7 @@ int main()
 		int idx = veb_index(i+1, power);
 		indices[i] = make_pair(idx, alpha[i]);
 	}
-	sort(indices.begin(), indices.end());
+	sort(begin(indices), end(indices));
 
 	for (i=0; i < len; i++) {
 		std::cout << indices[i].second;
@@ -128,7 +131,7 @@ int main()
 	// Search array
 	int length = (int)strlen(veb_str);	
 
-	char* search = "HDLBACFEGJIKNMOabc";
+	const char* search = "HDLBACFEGJIKNMOabc";
 	int search_len = (int)strlen(search);
 
 	for (int i=0; i < search_len; i++) {
