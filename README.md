@@ -7,7 +7,7 @@ Textbook BSTs are implemented with indirect pointers rather than contiguous memo
 space used per node and "locality" of access.
 
 Since a lot of computer time can be spent accessing (looking up) data, we should seek to reduce this cost when possible,
-as faster programs means a smaller utility bill in CPU cycles and less actual energy expended to support the underlying hardware.
+as faster programs can mean a smaller utility bill in CPU cycles. These days, such bills add up for companies looking to scale and for data centers that host cloud-based applications. Given that data centers can use up quite a bit of physical space and energy, it makes sense to be mindful of the actual energy expended to support underlying hardware in the application "cloud".
 
 One way to do this is via "caching" with multi-level (hierarchical) "cache" data structures. 
 However, it turns out that the size of this hardware or software cache can have an impact on both hardware cost 
@@ -19,7 +19,7 @@ To address this, work has been done in cache-oblivious data structures and algor
 
 An academic research survey paper by MIT professor Erik Demaine in 2002 (http://erikdemaine.org/papers/BRICS2002/paper.pdf)
 summarizes some previous theoretical work in the area. While at the time such forward-thinking ideas were not yet immediately
-usely, a decade+ later the principles were applied to production database systems.
+uselful, a decade+ later the principles were applied to production database systems.
 
 This particular code implements a van Emde Boas search tree (https://en.wikipedia.org/wiki/Van_Emde_Boas_tree), so that
 performance may be theoretically cache-size oblivious--generally a good thing. 
